@@ -23,10 +23,23 @@ public class ProjectService {
     }
 
     public Project findByProjectIdentifier(String projectIdentifier){
+        String normalizedIdentifier = projectIdentifier.toUpperCase();
+        Project existingProject = projectRepository.findByProjectIdentifier(normalizedIdentifier);
+        if (existingProject == null) {
+            throw new ProjectIdException(projectIdentifier, false);  // Project ID does not exist
+        }
         return projectRepository.findByProjectIdentifier(projectIdentifier);
     }
 
     public List<Project> findAllProjects(){
         return projectRepository.findAll();
+    }
+
+    public void deleteByIdentifier(String projectIdentifier){
+        Project project = projectRepository.findByProjectIdentifier(projectIdentifier);
+        if (project == null){
+            throw new ProjectIdException(projectIdentifier, false);
+        }
+        projectRepository.delete(project);
     }
 }

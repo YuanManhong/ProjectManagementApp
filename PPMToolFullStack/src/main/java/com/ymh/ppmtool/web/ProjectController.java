@@ -19,18 +19,11 @@ public class ProjectController {
     private ProjectService projectService;
     @PostMapping("")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project) {
-        if (projectService.findByProjectIdentifier(project.getProjectIdentifier().toUpperCase()) != null){
-            throw new ProjectIdException(project.getProjectIdentifier(), true);  // Project ID already exists
-        }
         return new ResponseEntity<>(projectService.saveOrUpdateProject(project), HttpStatus.CREATED);
     }
 
     @GetMapping("/{projectIdentifier}")
     public ResponseEntity<?> findByProjectIndentifier(@PathVariable String projectIdentifier) {
-        Project project = projectService.findByProjectIdentifier(projectIdentifier.toUpperCase());
-        if (project == null) {
-            throw new ProjectIdException(projectIdentifier, false);  // Project ID does not exist
-        }
         return new ResponseEntity<>(projectService.findByProjectIdentifier(projectIdentifier), HttpStatus.OK);
     }
 
@@ -39,4 +32,9 @@ public class ProjectController {
         return new ResponseEntity<>(projectService.findAllProjects(), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{projectIdentifier}")
+    public ResponseEntity<?> deleteProjectByIdentifier(@PathVariable String projectIdentifier){
+        projectService.deleteByIdentifier(projectIdentifier);
+        return new ResponseEntity<>("Project with ID: " + projectIdentifier + " was deleted",HttpStatus.OK);
+    }
 }

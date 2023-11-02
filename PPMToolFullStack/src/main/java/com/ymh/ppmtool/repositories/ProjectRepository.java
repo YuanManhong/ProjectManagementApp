@@ -11,6 +11,8 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     Project findByProjectIdentifier(String projectIdentifier);
     @Override
     List<Project> findAll();
+    @Override
+    void delete(Project project);
 }
 
 
