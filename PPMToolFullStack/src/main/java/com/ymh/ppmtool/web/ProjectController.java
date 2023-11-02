@@ -37,4 +37,15 @@ public class ProjectController {
         projectService.deleteByIdentifier(projectIdentifier);
         return new ResponseEntity<>("Project with ID: " + projectIdentifier + " was deleted",HttpStatus.OK);
     }
+
+/*    @PutMapping("/{projectIdentifier}")
+    public ResponseEntity<?> UpdateProjectByIdentifier(@PathVariable String projectIdentifier,
+                                                       Project project){
+        Project updatedProject = projectService.saveOrUpdateProject(projectIdentifier, project);
+        return new ResponseEntity<>(updatedProject, HttpStatus.OK);
+    }*/
+@PutMapping("/{projectIdentifier}")
+public ResponseEntity<?> updateProjectByIdentifier(@Valid @RequestBody Project newProjectData, @PathVariable String projectIdentifier) {
+    return new ResponseEntity<>(projectService.updateProjectByIdentifier(newProjectData, projectIdentifier), HttpStatus.OK);
+}
 }

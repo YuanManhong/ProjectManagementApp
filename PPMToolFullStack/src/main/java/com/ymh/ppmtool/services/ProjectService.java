@@ -6,6 +6,8 @@ import com.ymh.ppmtool.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -42,4 +44,32 @@ public class ProjectService {
         }
         projectRepository.delete(project);
     }
+
+    public Project updateProjectByIdentifier(Project newProjectData, String projectIdentifier) {
+        String normalizedIdentifier = projectIdentifier.toUpperCase();
+        Project existingProject = projectRepository.findByProjectIdentifier(normalizedIdentifier);
+        if (existingProject == null) {
+            throw new ProjectIdException(projectIdentifier, false);  // Project ID does not exist
+        }
+        // Assuming Project has setters for all its fields.
+        // Copy fields from newProjectData to existingProject.
+        existingProject.setProjectName(newProjectData.getProjectName());
+        existingProject.setDescription(newProjectData.getDescription());
+        existingProject.setUpdatedAt(ZonedDateTime.now());
+        // ... set other fields ...
+
+        return projectRepository.save(existingProject);
+    }
+
+/*    public Project updateByIdentifier(String projectIdentifier, Project project){
+        Project project1 = projectRepository.findByProjectIdentifier(projectIdentifier);
+        if (project1 == null){
+            throw new ProjectIdException(projectIdentifier, false);
+        }
+        project1.setProjectName(project.getProjectName());
+        project1.setDescription(project.getDescription());
+        project1.setUpdatedAt(new Date());
+        Project updatedProject = projectRepository.save(project1);
+        return updatedProject;
+    }*/
 }
