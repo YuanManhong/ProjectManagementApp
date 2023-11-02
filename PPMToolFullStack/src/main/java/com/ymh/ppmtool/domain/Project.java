@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Entity
@@ -38,29 +37,29 @@ public class Project {
     private String description;
 
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private ZonedDateTime startDate;
+    @JsonFormat(pattern = "yyyy-mm-dd")
+    private Date startDate;
 
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private ZonedDateTime endDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date endDate;
 
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private ZonedDateTime createAt;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date createAt;
 
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private ZonedDateTime updatedAt;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date updatedAt;
 
     // everytime create/update the object, it stores the date
     @PrePersist
     protected void onCreate(){
-        this.createAt = ZonedDateTime.now();
+        this.createAt = new Date();
     }
     @PreUpdate
     protected void onUpdate(){
-        ZonedDateTime.now();
+        this.updatedAt = new Date();
     }
 
 }

@@ -6,7 +6,7 @@ import com.ymh.ppmtool.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.ZonedDateTime;
+//import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class ProjectService {
         // Copy fields from newProjectData to existingProject.
         existingProject.setProjectName(newProjectData.getProjectName());
         existingProject.setDescription(newProjectData.getDescription());
-        existingProject.setUpdatedAt(ZonedDateTime.now());
+        existingProject.setUpdatedAt(new Date());
         // ... set other fields ...
 
         return projectRepository.save(existingProject);
