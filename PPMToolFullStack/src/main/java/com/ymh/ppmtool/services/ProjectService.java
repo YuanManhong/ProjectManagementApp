@@ -17,7 +17,10 @@ public class ProjectService {
             project.setProjectIdentifier(normalizedIdentifier);
             return projectRepository.save(project);
         }
-        throw new ProjectIdException(normalizedIdentifier);
+        throw new ProjectIdException(normalizedIdentifier, true);
+    }
 
+    public Project findByProjectIdentifier(String projectIdentifier){
+        return projectRepository.findByProjectIdentifier(projectIdentifier);
     }
 }
