@@ -1,7 +1,9 @@
 package com.ymh.ppmtool.web;
 
 import com.ymh.ppmtool.domain.Project;
+/*
 import com.ymh.ppmtool.services.MapValidationErrorService;
+*/
 import com.ymh.ppmtool.services.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +25,8 @@ import java.util.Map;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
-
-    @Autowired
-    private MapValidationErrorService mapValidationErrorService;
-
     @PostMapping("")
-    public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project,
-                                                    BindingResult result){
-        ResponseEntity<?> errorResponse = mapValidationErrorService.MapValidationService(result);
-        if (errorResponse != null) return errorResponse;
-
-        Project newProject = projectService.saveOrUpdateProject(project);
-        return new ResponseEntity<>(newProject, HttpStatus.CREATED);
+    public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project){
+        return new ResponseEntity<>(projectService.saveOrUpdateProject(project), HttpStatus.CREATED);
     }
 }
