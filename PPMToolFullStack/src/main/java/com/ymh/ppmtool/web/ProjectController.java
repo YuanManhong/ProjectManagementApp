@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/projects")
@@ -30,6 +32,11 @@ public class ProjectController {
             throw new ProjectIdException(projectIdentifier, false);  // Project ID does not exist
         }
         return new ResponseEntity<>(projectService.findByProjectIdentifier(projectIdentifier), HttpStatus.OK);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> findAllProjects(){
+        return new ResponseEntity<>(projectService.findAllProjects(), HttpStatus.OK);
     }
 
 }
