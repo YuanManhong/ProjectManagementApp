@@ -1,101 +1,122 @@
-import React, { Component } from 'react'
+import React, { Component} from "react";
+import {useState} from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createProject } from "../../actions/projectActions";
+import { useNavigate } from 'react-router-dom';
 
-class AddProject extends Component {
-    constructor(){
-        super()
-        this.state={ //state is immutable, so you need to send a new state when user enter something
-            "projectName": "",
-            "projectIdentifier": "",
-            "description": "",
-            "startDate": "",
-            "endDate": "",
+function AddProject(props) {
+    const [state, setState] = useState({
+      projectName: '',
+      projectIdentifier: '',
+      description: '',
+      start_date: '',
+      end_date: '',
+    });const navigate = useNavigate();
+
+    const onChange = (e) => {
+      setState({ ...state, [e.target.name]: e.target.value });
+    };
+  
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const newProject = {
+          projectName: state.projectName,
+          projectIdentifier: state.projectIdentifier,
+          description: state.description,
+          start_date: state.start_date,
+          end_date: state.end_date,
         };
-        this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    onChange(e){
-        this.setState({[e.target.name]: e.target.value}) // set a new state
-    }
-
-    onSubmit(e){
-        e.preventDefault(); // prevent reload the page which causing lose data
-        const newProject ={
-            "projectName": this.state.projectName,
-            "projectIdentifier": this.state.projectIdentifier,
-            "description": this.state.description,
-            "startDate": this.state.startDate,
-            "endDate": this.state.endDate,
-        };
-        console.log(newProject);
-    }
-
-  render() {
+        props.createProject(newProject, navigate);
+      };
     return (
-        <div className="register">
-        <div className="container">
+      <div>
+        {
+          //check name attribute input fields
+          //create constructor
+          //set state
+          //set value on input fields
+          //create onChange function
+          //set onChange on each input field
+          //bind on constructor
+          //check state change in the react extension
+        }
+
+        <div className="project">
+          <div className="container">
             <div className="row">
-                <div className="col-md-8 m-auto">
-                    <h5 className="display-4 text-center">Create Project form</h5>
-                    <hr />
-                    <form onSubmit={this.onSubmit}>
-                        <div className="form-group mb-2">
-                            <input 
-                                type="text" 
-                                className="form-control form-control-lg " 
-                                placeholder="Project Name" 
-                                name='projectName'
-                                value={this.state.projectName}
-                                onChange={this.onChange.bind(this)}
-                                />
-                        </div>
-                        <div className="form-group mb-2">
-                            <input 
-                                type="text" 
-                                className="form-control form-control-lg" 
-                                placeholder="Unique Project ID" 
-                                name='projectIdentifier'
-                                value={this.state.projectIdentifier}
-                                onChange={this.onChange.bind(this)}
-                            />
-                        </div>
-                        <div className="form-group mb-2">
-                            <textarea 
-                                className="form-control form-control-lg" 
-                                placeholder="Project Description" 
-                                name='description'
-                                value={this.state.description}
-                                onChange={this.onChange.bind(this)}
-                            ></textarea>
-                        </div>
-                        <h6>Start Date</h6>
-                        <div className="form-group mb-2">
-                            <input 
-                                type="date" 
-                                className="form-control form-control-lg" 
-                                name="startDate"
-                                value={this.state.startDate}
-                                onChange={this.onChange.bind(this)} />
-                        </div>
-                        <h6>Estimated End Date</h6>
-                        <div className="form-group mb-2">
-                            <input 
-                                type="date" 
-                                className="form-control form-control-lg" 
-                                name="endDate" 
-                                value={this.state.endDate}
-                                onChange={this.onChange.bind(this)}
-                                />
-                        </div>
+              <div className="col-md-8 m-auto">
+                <h5 className="display-4 text-center">Create Project form</h5>
+                <hr />
+                <form onSubmit={onSubmit}>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg "
+                      placeholder="Project Name"
+                      name="projectName"
+                      value={state.projectName}
+                      onChange={onChange} 
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Unique Project ID"
+                      name="projectIdentifier"
+                      value={state.projectIdentifier}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      className="form-control form-control-lg"
+                      placeholder="Project Description"
+                      name="description"
+                      value={state.description}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <h6>Start Date</h6>
+                  <div className="form-group">
+                    <input
+                      type="date"
+                      className="form-control form-control-lg"
+                      name="start_date"
+                      value={state.start_date}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <h6>Estimated End Date</h6>
+                  <div className="form-group">
+                    <input
+                      type="date"
+                      className="form-control form-control-lg"
+                      name="end_date"
+                      value={state.end_date}
+                      onChange={onChange}
+                    />
+                  </div>
 
-                        <input type="submit" className="btn btn-primary btn-block mt-4" />
-                    </form>
-                </div>
+                  <input
+                    type="submit"
+                    className="btn btn-primary btn-block mt-4"
+                  />
+                </form>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-
-    )
+      </div>
+    );
   }
-}
 
-export default AddProject;
+AddProject.propTypes = {
+  createProject: PropTypes.func.isRequired
+};
+
+export default connect(
+    null,
+    { createProject },
+  )(AddProject);

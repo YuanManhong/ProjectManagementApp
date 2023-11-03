@@ -5,9 +5,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {BrowserRouter} from 'react-router-dom';
 import {Routes, Route, Navigate} from "react-router";
 import AddProject from './components/Project/AddProject';
+import {Provider} from "react-redux";
+import store from './store';
 
 function App() {
   return (
+    <Provider store={store}>
     <BrowserRouter>
       <div className="App">
         <Header/>
@@ -18,7 +21,7 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
-
+</Provider>
   );
 }
 
