@@ -7,6 +7,7 @@ import {Routes, Route, Navigate} from "react-router";
 import AddProject from './components/Project/AddProject';
 import {Provider} from "react-redux";
 import store from './store';
+import EditProject from "./components/Project/EditProject";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Navigate to="/dashboard"/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/addProject" element={<AddProject/>}/>
+          <Route path="/editProject/:projectIdentifier" element={<EditProject />} />  
         </Routes>
       </div>
     </BrowserRouter>

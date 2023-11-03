@@ -10,8 +10,8 @@ const AddProject = (props) => {
         projectName: '',
         projectIdentifier: '',
         description: '',
-        start_date: '',
-        end_date: '',
+        startDate: '',
+        endDate: '',
     });
 
     const [errors, setErrors] = useState({});  // 添加一个新的state来存储错误消息
@@ -34,8 +34,8 @@ const AddProject = (props) => {
             formErrors.projectIdentifier = "Please use 4 to 5 characters for project identifier";
         }
         if (!state.description) formErrors.description = "Project description is required";
-        if (!state.start_date) formErrors.start_date = "Start date is required";
-        if (!state.end_date) formErrors.end_date = "Estimated end date is required";
+        if (!state.startDate) formErrors.startDate = "Start date is required";
+        if (!state.endDate) formErrors.endDate = "Estimated end date is required";
 
         return formErrors;
     };
@@ -53,8 +53,8 @@ const AddProject = (props) => {
             projectName: state.projectName,
             projectIdentifier: state.projectIdentifier,
             description: state.description,
-            start_date: state.start_date,
-            end_date: state.end_date,
+            startDate: state.startDate,
+            endDate: state.endDate,
         };
         props.createProject(newProject, navigate);
     };
@@ -105,22 +105,22 @@ const AddProject = (props) => {
                                   <input
                                       type="date"
                                       className="form-control form-control-lg"
-                                      name="start_date"
-                                      value={state.start_date}
+                                      name="startDate"
+                                      value={state.startDate}
                                       onChange={onChange}
                                   />
-                                  {errors.start_date && <div className="alert alert-danger">{errors.start_date}</div>}
+                                  {errors.startDate && <div className="alert alert-danger">{errors.startDate}</div>}
                               </div>
                               <h6>Estimated End Date</h6>
                               <div className="form-group mb-2">
                                   <input
                                       type="date"
                                       className="form-control form-control-lg"
-                                      name="end_date"
-                                      value={state.end_date}
+                                      name="endDate"
+                                      value={state.endDate}
                                       onChange={onChange}
                                   />
-                                  {errors.end_date && <div className="alert alert-danger">{errors.end_date}</div>}
+                                  {errors.endDate && <div className="alert alert-danger">{errors.endDate}</div>}
                               </div>
   
                               <input
@@ -165,3 +165,14 @@ export default connect(
   
   // This syntax is used for importing a named export called createProject from the module '../../actions/projectActions'. A module can have multiple named exports.
   // In summary, the first syntax is used for importing the default export from a module, while the second syntax is used for importing a specific named export from a module.
+
+
+  /*
+  AddProject.propTypes = { ... }; - This line is setting up property type checking for the AddProject component. It helps to catch bugs by checking that the properties passed to AddProject are of the correct type.
+
+createProject: PropTypes.func.isRequired, - This line is saying that AddProject should receive a property called createProject, and that this property should be a function (func). The isRequired part means that this property must be provided; it's not optional.
+
+errors: PropTypes.object.isRequired, - Similarly, this line is saying that AddProject should receive a property called errors, and that this property should be an object. Again, isRequired means that this property must be provided; it's not optional.
+
+In summary, this code is defining the expectations for the properties that AddProject should receive, specifying that it should get a function called createProject and an object called errors, and both of these properties are required.
+*/
