@@ -55,6 +55,8 @@ public class ProjectService {
         // Copy fields from newProjectData to existingProject.
         existingProject.setProjectName(newProjectData.getProjectName());
         existingProject.setDescription(newProjectData.getDescription());
+        existingProject.setStartDate(newProjectData.getStartDate());
+        existingProject.setEndDate(newProjectData.getEndDate());
         existingProject.setUpdatedAt(new Date());
         // ... set other fields ...
 
