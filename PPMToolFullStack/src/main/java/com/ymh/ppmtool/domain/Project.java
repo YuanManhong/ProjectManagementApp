@@ -17,6 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +26,6 @@ public class Project {
 
     @NotBlank(message = "Project name is required")
     private String projectName;
-
-
-    @NotBlank(message = "Project identifier is required")
-    @Size(min = 4, max = 5, message = "Please use 4 to 5 characters")
-    @Column(updatable = false, unique = true)
-    private String projectIdentifier;
-
 
     @NotBlank(message = "Project description is required")
     private String description;
@@ -51,6 +45,9 @@ public class Project {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
     // everytime create/update the object, it stores the date
     @PrePersist

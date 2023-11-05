@@ -9,7 +9,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -21,12 +20,19 @@ import java.util.Map;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     //handle specific exceptions
-    @ExceptionHandler(ProjectIdException.class)
-    public final ResponseEntity<ErrorDetails> handleProjectIdException(ProjectIdException ex,
-                                                                       WebRequest request){
+    @ExceptionHandler(ProjectNameException.class)
+    public final ResponseEntity<ErrorDetails> handleProjectNameException(ProjectNameException ex,
+                                                                     WebRequest request){
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ProjectIdException.class)
+    public final ResponseEntity<ErrorDetails> handleProjectIdException(ProjectIdException ex, WebRequest request){
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
 
     // global exceptions
     @ExceptionHandler(Exception.class)

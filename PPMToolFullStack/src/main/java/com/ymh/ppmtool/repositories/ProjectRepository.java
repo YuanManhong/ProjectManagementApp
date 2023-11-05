@@ -4,16 +4,15 @@ import com.ymh.ppmtool.domain.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
     @Override
     List<Project> findAllById(Iterable<Long> iterable);
-    Project findByProjectIdentifier(String projectIdentifier);
     @Override
     List<Project> findAll();
     @Override
-    void delete(Project project);
-
+    void deleteById(Long id);
 
 }
 

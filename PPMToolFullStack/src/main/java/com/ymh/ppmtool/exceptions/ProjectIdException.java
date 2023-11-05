@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class ProjectIdException extends RuntimeException {
-    private String projectIdentifier;
+    private Long id;
     private boolean exists;
 
-    public ProjectIdException(String projectIdentifier, boolean exists) {
-        super(String.format("Project ID '%s' %s", projectIdentifier.toUpperCase(), exists ? "already exists" : "does not exist"));
-        this.projectIdentifier = projectIdentifier;
+    public ProjectIdException(Long id, boolean exists) {
+        super(String.format("Project with ID: '%s' %s", id, exists ? "already exists" : "does not exist"));
+        this.id = id;
         this.exists = exists;
     }
 
-    public String getProjectIdentifier() {
-        return this.projectIdentifier;
+    public Long getProjectId() {
+        return this.id;
     }
 
     public boolean isExists() {
